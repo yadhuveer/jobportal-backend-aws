@@ -4,6 +4,12 @@ import ejsLayouts from 'express-ejs-layouts';
 import  session from 'express-session';
 import {portalHandler} from './src/controllers/portal.controller.js';
 import fs from 'fs';
+import dotenv from 'dotenv';
+
+import mongoose from 'mongoose';
+
+
+dotenv.config();
 
 
 import {UserController} from './src/controllers/user.controller.js';
@@ -28,6 +34,17 @@ const __dirname = path.dirname(__filename);
 
 const server = express();
 const PORT = process.env.PORT || 3000;
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log("Connected to MongoDB");
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+});
+
 server.use(cookieParser());
 //server.use(setLastVisit);
 server.use(express.urlencoded({extended:true}));
