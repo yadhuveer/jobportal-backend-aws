@@ -138,7 +138,9 @@ server.post('/register',[(req, res, next) => userInstance.HandleUser(req, res, n
 server.get('/get-session',[userInstance.sendSession]);
 server.get('/lastvisit',[setLastVisit]);
 
-server.listen(PORT);
+server.listen(PORT,"0.0.0.0",()=>{
+  console.log(`Server running on port ${PORT}`);
+});
 
 
 
